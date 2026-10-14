@@ -118,6 +118,13 @@ jobs:
         name: spaghetti.o2r
         path: android/app/src/main/assets
 
+    - name: Stage Torch assets into the APK
+      run: |
+        mkdir -p android/app/src/main/assets
+        cp config.yml android/app/src/main/assets/
+        cp -r yamls meta android/app/src/main/assets/
+        ls android/app/src/main/assets
+
     - name: Configure Gradle permissions
       run: chmod +x android/gradlew
 
