@@ -17,6 +17,7 @@ static const std::unordered_map<int32_t, const char*> menuExtentOptions = {
 };
 
 static const std::unordered_map<int32_t, const char*> menuThemeOptions = {
+    { UIWidgets::Colors::Gold, "Gold" },
     { UIWidgets::Colors::Red, "Red" },
     { UIWidgets::Colors::DarkRed, "Dark Red" },
     { UIWidgets::Colors::Orange, "Orange" },

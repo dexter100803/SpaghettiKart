@@ -121,7 +121,7 @@ void RegisterResolutionWidgets() {
         .Options(WidgetOptions().Color(Colors::Orange));
     mPortMenu->AddWidget(path, ICON_FA_QUESTION_CIRCLE " \"N64 Mode\" is overriding these settings.", WIDGET_TEXT)
         .PreFunc([](WidgetInfo& info) { info.isHidden = !CVarGetInteger(CVAR_LOW_RES_MODE, 0); })
-        .Options(WidgetOptions().Color(Colors::LightBlue));
+        .Options(WidgetOptions().Color(Colors::Gold));
     mPortMenu->AddWidget(path, "Click to disable N64 mode", WIDGET_BUTTON)
         .PreFunc([](WidgetInfo& info) { info.isHidden = !CVarGetInteger(CVAR_LOW_RES_MODE, 0); })
         .Callback([](WidgetInfo& info) {

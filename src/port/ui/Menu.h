@@ -23,7 +23,7 @@ class Menu : public GuiWindow {
     using GuiWindow::GuiWindow;
 
     Menu(const std::string& cVar, const std::string& name, uint8_t searchSidebarIndex_ = 0,
-         UIWidgets::Colors menuThemeIndex_ = UIWidgets::Colors::LightBlue);
+         UIWidgets::Colors menuThemeIndex_ = UIWidgets::Colors::Gold);
     virtual ~Menu() {}
 
     void InitElement() override;

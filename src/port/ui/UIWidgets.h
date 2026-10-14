@@ -59,6 +59,7 @@ namespace UIWidgets {
         Black,
         LightGray,
         White,
+        Gold,
         NoColor
     } Colors;
 
@@ -83,6 +84,7 @@ namespace UIWidgets {
         { Colors::DarkGray, ImVec4(0.15f, 0.15f, 0.15f, 1.0f) },
         { Colors::Black, ImVec4(0.0f, 0.0f, 0.0f, 1.0f)},
         { Colors::White, ImVec4(1.0f, 1.0f, 1.0f, 1.0f) },
+        { Colors::Gold, ImVec4(0.72f, 0.54f, 0.10f, 1.0f) },
         { Colors::NoColor, ImVec4(0.0f, 0.0f, 0.0f, 0.0f)},
     };
 
