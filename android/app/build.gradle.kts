@@ -86,6 +86,13 @@ android {
         debug {
             isJniDebuggable = true
             applicationIdSuffix = ".debug"
+            // Build the native code optimized even in this variant; an unoptimized
+            // build is far too slow for a game.
+            externalNativeBuild {
+                cmake {
+                    arguments += listOf("-DCMAKE_BUILD_TYPE=Release")
+                }
+            }
         }
         release {
             // The APK is almost entirely native code and assets, so shrinking
