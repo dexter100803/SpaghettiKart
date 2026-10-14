@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Engine.h"
 
 #include <cstdlib>
@@ -517,8 +518,12 @@ void GameEngine::HandleAudioThread() {
 
         float master_vol = CVarGetFloat("gGameMasterVolume", 1.0f);
 
+        // Clamp the sum to the s16 range; plain addition wraps around on loud
+        // passages and produces harsh crackling.
         for (size_t i = 0; i < SAMPLES_PER_FRAME; i++) {
-            mix_buffer[i] = nas_buffer[i] + ((int16_t)(hmas_buffer[i] * 32767.0f) * master_vol);
+            float h = hmas_buffer[i] * 32767.0f * master_vol;
+            int32_t mixed = (int32_t) nas_buffer[i] + (int32_t) h;
+            mix_buffer[i] = (s16) std::clamp(mixed, -32768, 32767);
         }
 
         AudioPlayerPlayFrame((u8*) mix_buffer, 2 * num_audio_samples * 4);
