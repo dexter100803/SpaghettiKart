@@ -78,19 +78,33 @@ class LauncherActivity : ComponentActivity() {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
             setPadding(padding, padding, padding, padding)
-            setBackgroundColor(Color.rgb(8, 16, 28))
+            background = GoldTheme.background()
         }
 
         status = TextView(this).apply {
-            setTextColor(Color.WHITE)
+            setTextColor(GoldTheme.TEXT)
             textSize = 16f
             gravity = Gravity.CENTER
         }
         chooseButton = Button(this).apply {
             text = getString(R.string.launcher_choose_rom)
             setOnClickListener { pickRom.launch(arrayOf("*/*")) }
+            isAllCaps = false
+            GoldTheme.styleButton(this, resources.displayMetrics.density)
         }
-        progress = ProgressBar(this).apply { visibility = View.GONE }
+        progress = ProgressBar(this).apply {
+            visibility = View.GONE
+            GoldTheme.tint(this)
+        }
+        val title = TextView(this).apply {
+            text = getString(R.string.app_name).uppercase()
+            setTextColor(GoldTheme.GOLD)
+            textSize = 28f
+            letterSpacing = 0.15f
+            gravity = Gravity.CENTER
+            setTypeface(typeface, android.graphics.Typeface.BOLD)
+            setPadding(0, 0, 0, padding / 2)
+        }
 
         // The failure messages can run long, and the launcher is fixed to
         // landscape, so let the text scroll rather than push the button away.
@@ -101,6 +115,7 @@ class LauncherActivity : ComponentActivity() {
             )
         }
 
+        root.addView(title)
         root.addView(scroller, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
         root.addView(chooseButton)
         root.addView(progress)

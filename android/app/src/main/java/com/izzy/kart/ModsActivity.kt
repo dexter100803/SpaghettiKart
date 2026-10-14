@@ -76,7 +76,7 @@ class ModsActivity : ComponentActivity() {
 
         root.addView(TextView(this).apply {
             text = "Mods"
-            setTextColor(Color.WHITE)
+            setTextColor(GoldTheme.GOLD)
             textSize = 22f
             setTypeface(typeface, Typeface.BOLD)
         })
@@ -140,7 +140,7 @@ class ModsActivity : ComponentActivity() {
         val label = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         label.addView(TextView(this).apply {
             text = mod.name
-            setTextColor(if (mod.enabled) Color.WHITE else SUBTLE)
+            setTextColor(if (mod.enabled) GoldTheme.TEXT else SUBTLE)
             textSize = 15f
         })
         label.addView(TextView(this).apply {
@@ -238,15 +238,16 @@ class ModsActivity : ComponentActivity() {
         minWidth = 0
         minimumWidth = 0
         setPadding(dp(10), dp(4), dp(10), dp(4))
+        GoldTheme.styleButton(this, resources.displayMetrics.density)
         setOnClickListener { onClick() }
     }
 
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
 
     private companion object {
-        val BACKGROUND = Color.rgb(8, 16, 28)
-        val SUBTLE = Color.rgb(150, 160, 175)
-        val ROW_EVEN = Color.argb(24, 255, 255, 255)
+        val BACKGROUND = GoldTheme.BLACK
+        val SUBTLE = GoldTheme.SUBTLE
+        val ROW_EVEN = GoldTheme.ROW_EVEN
         val ROW_ODD = Color.TRANSPARENT
     }
 }
