@@ -39,6 +39,7 @@ class LauncherActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GoldTheme.load(this)
         buildUi()
         prepare()
     }
@@ -72,6 +73,16 @@ class LauncherActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        GoldTheme.start()
+    }
+
+    override fun onPause() {
+        GoldTheme.stop()
+        super.onPause()
+    }
+
     private fun buildUi() {
         val padding = (24 * resources.displayMetrics.density).toInt()
         val root = LinearLayout(this).apply {
@@ -99,6 +110,7 @@ class LauncherActivity : ComponentActivity() {
         val title = TextView(this).apply {
             text = getString(R.string.app_name).uppercase()
             setTextColor(GoldTheme.GOLD)
+            GoldTheme.trackTitle(this)
             textSize = 28f
             letterSpacing = 0.15f
             gravity = Gravity.CENTER
@@ -116,6 +128,7 @@ class LauncherActivity : ComponentActivity() {
         }
 
         root.addView(title)
+        root.addView(GoldTheme.buildPicker(this) { progress.visibility != View.VISIBLE })
         root.addView(scroller, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
         root.addView(chooseButton)
         root.addView(progress)

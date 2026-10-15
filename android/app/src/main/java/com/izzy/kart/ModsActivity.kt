@@ -62,8 +62,19 @@ class ModsActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GoldTheme.load(this)
         buildUi()
         refresh()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        GoldTheme.start()
+    }
+
+    override fun onPause() {
+        GoldTheme.stop()
+        super.onPause()
     }
 
     private fun buildUi() {
@@ -74,12 +85,20 @@ class ModsActivity : ComponentActivity() {
             setBackgroundColor(BACKGROUND)
         }
 
-        root.addView(TextView(this).apply {
+        val header = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+        }
+        val titleView = TextView(this).apply {
             text = "Mods"
             setTextColor(GoldTheme.GOLD)
+            GoldTheme.trackTitle(this)
             textSize = 22f
             setTypeface(typeface, Typeface.BOLD)
-        })
+        }
+        header.addView(titleView, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+        header.addView(GoldTheme.buildPicker(this))
+        root.addView(header)
 
         root.addView(TextView(this).apply {
             text = "Loaded top to bottom. A mod lower in the list overrides the ones above it."
@@ -245,9 +264,9 @@ class ModsActivity : ComponentActivity() {
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
 
     private companion object {
-        val BACKGROUND = GoldTheme.BLACK
-        val SUBTLE = GoldTheme.SUBTLE
-        val ROW_EVEN = GoldTheme.ROW_EVEN
+        val BACKGROUND: Int get() = GoldTheme.BLACK
+        val SUBTLE: Int get() = GoldTheme.SUBTLE
+        val ROW_EVEN: Int get() = GoldTheme.ROW_EVEN
         val ROW_ODD = Color.TRANSPARENT
     }
 }
