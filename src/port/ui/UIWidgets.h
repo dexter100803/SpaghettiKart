@@ -2,6 +2,7 @@
 #define UIWidgets_hpp
 
 #include <string>
+#include <cmath>
 #include <vector>
 #include <span>
 #include <stdint.h>
@@ -60,10 +61,12 @@ namespace UIWidgets {
         LightGray,
         White,
         Gold,
+        Silver,
+        Rainbow,
         NoColor
     } Colors;
 
-    const std::unordered_map<Colors, ImVec4> ColorValues = {
+    inline std::unordered_map<Colors, ImVec4> ColorValues = {
         { Colors::Pink, ImVec4(0.87f, 0.3f, 0.87f, 1.0f) },
         { Colors::Red, ImVec4(0.55f, 0.0f, 0.0f, 1.0f) },
         { Colors::DarkRed, ImVec4(0.3f, 0.0f, 0.0f, 1.0f) },
@@ -85,8 +88,18 @@ namespace UIWidgets {
         { Colors::Black, ImVec4(0.0f, 0.0f, 0.0f, 1.0f)},
         { Colors::White, ImVec4(1.0f, 1.0f, 1.0f, 1.0f) },
         { Colors::Gold, ImVec4(0.72f, 0.54f, 0.10f, 1.0f) },
+        { Colors::Silver, ImVec4(0.62f, 0.64f, 0.68f, 1.0f) },
+        { Colors::Rainbow, ImVec4(0.85f, 0.20f, 0.20f, 1.0f) },
         { Colors::NoColor, ImVec4(0.0f, 0.0f, 0.0f, 0.0f)},
     };
+
+    // Cycles the "Rainbow" theme color through the hue wheel; call once per frame.
+    inline void UpdateRainbowColor() {
+        float hue = (float) std::fmod(ImGui::GetTime() * 0.15, 1.0);
+        float r = 0.0f, g = 0.0f, b = 0.0f;
+        ImGui::ColorConvertHSVtoRGB(hue, 0.85f, 0.85f, r, g, b);
+        ColorValues[Colors::Rainbow] = ImVec4(r, g, b, 1.0f);
+    }
 
     namespace Sizes {
         const ImVec2 Inline = ImVec2(0.0f, 0.0f);

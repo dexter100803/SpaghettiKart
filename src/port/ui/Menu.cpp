@@ -473,6 +473,7 @@ void Menu::Draw() {
 }
 
 void Menu::DrawElement() {
+    UIWidgets::UpdateRainbowColor();
     for (auto& [reason, info] : disabledMap) {
         info.active = info.evaluation(info);
     }
