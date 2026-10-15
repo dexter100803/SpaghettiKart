@@ -125,6 +125,13 @@ jobs:
         cp -r yamls meta android/app/src/main/assets/
         ls android/app/src/main/assets
 
+    - name: Tune audio buffering for mobile
+      run: |
+        sed -i 's/int32_t SampleLength = 1024;/int32_t SampleLength = 2048;/; s/int32_t DesiredBuffered = 2480;/int32_t DesiredBuffered = 4400;/' libultraship/include/ship/audio/AudioPlayer.h
+        sed -i 's/Buffered() < 6000/Buffered() < 8000/' libultraship/src/ship/audio/SDLAudioPlayer.cpp
+        grep -n "SampleLength = 2048\|DesiredBuffered = 4400" libultraship/include/ship/audio/AudioPlayer.h
+        grep -n "Buffered() < 8000" libultraship/src/ship/audio/SDLAudioPlayer.cpp
+
     - name: Configure Gradle permissions
       run: chmod +x android/gradlew
 
